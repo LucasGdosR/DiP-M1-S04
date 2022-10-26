@@ -15,6 +15,11 @@ header{
     top: 0;
     width: 100%;
 }
+main{
+    padding-top: 2.8em;
+    padding-bottom: 60px;
+    text-align: center;
+}
 footer{
     background-color: rgb(156, 221, 243);
     position: fixed;
