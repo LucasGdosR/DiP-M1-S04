@@ -1,0 +1,30 @@
+body{
+    background-color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+header{
+    background-color: rgb(36, 36, 255);
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    height: 2.8em;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+footer{
+    background-color: rgb(156, 221, 243);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+ul{
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
