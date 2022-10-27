@@ -95,7 +95,7 @@ const limparCadastro = () => {
 
 const desativarValor = () => {
     const valor = document.getElementById('valor');
-    if (document.getElementById('operacao').value == 'saque') {
+    if (document.getElementById('operacao').value == 'consulta') {
         valor.value = "";
         valor.disabled = true;
     } else {valor.disabled = false;}
@@ -103,6 +103,41 @@ const desativarValor = () => {
 
 const limparOperacao = () => {
     for (input of operacao) {input.value = ''};
+}
+
+const sacar = () => {
+
+}
+
+const consultar = () => {
+
+}
+
+const depositar = () => {
+
+}
+
+const executar = () => {
+    const acc = document.getElementById('conta').value;
+    const password = document.getElementById('senha').value;
+    for (account of contas) {
+        if (account.conta == acc) {
+            if (password == account.senha) {
+                switch (document.getElementById('operacao').value) {
+                    case 'saque':
+                        sacar();
+                        return;
+                    case 'deposito':
+                        consultar();
+                        return;
+                    case 'consulta':
+                        depositar();
+                        return;
+                }
+            }
+        }
+    }
+    alert("Combinação inválida de conta e senha.");
 }
 
 const submit = document.getElementById('submit');
@@ -113,3 +148,5 @@ document.getElementById('clear').addEventListener('click', limparCadastro);
 document.getElementById('operacao').addEventListener('change', desativarValor);
 
 document.getElementById('clearOperacao').addEventListener('click', limparOperacao);
+
+document.getElementById('execute').addEventListener('click', executar);
