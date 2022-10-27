@@ -1,14 +1,16 @@
 const contas = [];
 
-const formulario = document.getElementsByTagName('input');
+const cadastro = document.getElementsByClassName('cadastro');
+
+const operacao = document.getElementsByClassName('operacao');
 
 const salvarFormulario = () => {
     if (!validaDados()) return;
     const cliente = {
-        nome: formulario[0].value,
-        cpf: formulario[1].value,
-        celular: formulario[2].value,
-        senha: formulario[3].value,
+        nome: cadastro[0].value,
+        cpf: cadastro[1].value,
+        celular: cadastro[2].value,
+        senha: cadastro[3].value,
         conta: Math.floor(1000 + Math.random() * 90000),
         saldo: 0,
     };
@@ -25,7 +27,7 @@ const validaDados = () => {
 }
 
 const validaNome = () => {
-    if (formulario[0].value.length == 0) {
+    if (cadastro[0].value.length == 0) {
         alert("Preencha o nome.")
         return;
     }
@@ -33,7 +35,7 @@ const validaNome = () => {
 }
 
 const validaCPF = () => {
-    const cpf = formulario[1].value;
+    const cpf = cadastro[1].value;
     if (cpf === undefined) {
         alert("Preencha o CPF.")
         return;
@@ -55,7 +57,7 @@ const validaCPF = () => {
 }
 
 const validaCelular = () => {
-    const celular = formulario[2].value;
+    const celular = cadastro[2].value;
     if (celular === undefined) {
         alert("Preencha o celular.")
         return;
@@ -76,22 +78,105 @@ const validaCelular = () => {
 }
 
 const validaSenha = () => {
-    if (formulario[3].value.length == 0) {
+    if (cadastro[3].value.length == 0) {
         alert('Preencha a senha.');
         return;
     }
-    if (formulario[3].value != formulario[4].value) {
+    if (cadastro[3].value != cadastro[4].value) {
         alert('Senhas são diferentes. Insira a mesma senha nos dois campos.');
         return;
     }
     return true;
 }
 
-const limparFormulario = () => {
-    for (element of formulario) {element.value = ''};
+const limparCadastro = () => {
+    for (input of cadastro) {input.value = ''};
+}
+
+const desativarValor = () => {
+    const valor = document.getElementById('valor');
+    if (document.getElementById('operacao').value == 'consulta') {
+        valor.value = "";
+        valor.disabled = true;
+    } else {valor.disabled = false;}
+}
+
+const limparOperacao = () => {
+    for (input of operacao) {input.value = ''};
+}
+
+const sacar = (acc, valor) => {
+    if (valor < 0 || isNaN(parseFloat(valor))) {
+        alert("Valor inválido.");
+        return;
+    }
+    for (conta of contas) {
+        if (conta.conta == acc) {
+            if (conta.saldo < parseFloat(valor)) {
+                alert("Saldo insuficiente.");
+            } else {
+                conta.saldo -= parseFloat(valor);
+                alert(`Saque realizado com sucesso. Seu saldo é de R$${conta.saldo}.`);
+            }
+            break;
+        }
+    }
+}
+
+const consultar = (acc) => {
+    for (conta of contas) {
+        if (conta.conta == acc) {
+            alert(`Seu saldo é de R$${conta.saldo}.`);
+            break;
+        }
+    }
+}
+
+const depositar = (acc, valor) => {
+    if (valor < 0 || isNaN(parseFloat(valor))) {
+        alert("Valor inválido.");
+        return;
+    }
+    for (conta of contas) {
+        if (conta.conta == acc) {
+            conta.saldo += parseFloat(valor);
+            alert(`Depósito realizado com sucesso. Seu saldo é de R$${conta.saldo}.`);
+            break;
+        }
+    }
+}
+
+const executar = () => {
+    const acc = document.getElementById('conta').value;
+    const valor = document.getElementById('valor').value;
+    const password = document.getElementById('senha').value;
+    for (account of contas) {
+        if (account.conta == acc) {
+            if (password == account.senha) {
+                switch (document.getElementById('operacao').value) {
+                    case 'saque':
+                        sacar(acc, valor);
+                        return;
+                    case 'deposito':
+                        depositar(acc, valor);
+                        return;
+                    case 'consulta':
+                        consultar(acc);
+                        return;
+                }
+            }
+        }
+    }
+    alert("Combinação inválida de conta e senha.");
 }
 
 const submit = document.getElementById('submit');
 submit.addEventListener('click', salvarFormulario);
 
-document.getElementById('clear').addEventListener('click', limparFormulario);
+document.getElementById('clear').addEventListener('click', limparCadastro);
+
+document.getElementById('operacao').addEventListener('change', desativarValor);
+
+document.getElementById('clearOperacao').addEventListener('click', limparOperacao);
+
+document.getElementById('execute').addEventListener('click', executar);
