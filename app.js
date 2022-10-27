@@ -1,14 +1,16 @@
 const contas = [];
 
-const formulario = document.getElementsByTagName('input');
+const cadastro = document.getElementsByClassName('cadastro');
+
+const operacao = document.getElementsByClassName('operacao');
 
 const salvarFormulario = () => {
     if (!validaDados()) return;
     const cliente = {
-        nome: formulario[0].value,
-        cpf: formulario[1].value,
-        celular: formulario[2].value,
-        senha: formulario[3].value,
+        nome: cadastro[0].value,
+        cpf: cadastro[1].value,
+        celular: cadastro[2].value,
+        senha: cadastro[3].value,
         conta: Math.floor(1000 + Math.random() * 90000),
         saldo: 0,
     };
@@ -25,7 +27,7 @@ const validaDados = () => {
 }
 
 const validaNome = () => {
-    if (formulario[0].value.length == 0) {
+    if (cadastro[0].value.length == 0) {
         alert("Preencha o nome.")
         return;
     }
@@ -33,7 +35,7 @@ const validaNome = () => {
 }
 
 const validaCPF = () => {
-    const cpf = formulario[1].value;
+    const cpf = cadastro[1].value;
     if (cpf === undefined) {
         alert("Preencha o CPF.")
         return;
@@ -55,7 +57,7 @@ const validaCPF = () => {
 }
 
 const validaCelular = () => {
-    const celular = formulario[2].value;
+    const celular = cadastro[2].value;
     if (celular === undefined) {
         alert("Preencha o celular.")
         return;
@@ -76,22 +78,38 @@ const validaCelular = () => {
 }
 
 const validaSenha = () => {
-    if (formulario[3].value.length == 0) {
+    if (cadastro[3].value.length == 0) {
         alert('Preencha a senha.');
         return;
     }
-    if (formulario[3].value != formulario[4].value) {
+    if (cadastro[3].value != cadastro[4].value) {
         alert('Senhas são diferentes. Insira a mesma senha nos dois campos.');
         return;
     }
     return true;
 }
 
-const limparFormulario = () => {
-    for (element of formulario) {element.value = ''};
+const limparCadastro = () => {
+    for (input of cadastro) {input.value = ''};
+}
+
+const desativarValor = () => {
+    const valor = document.getElementById('valor');
+    if (document.getElementById('operacao').value == 'saque') {
+        valor.value = "";
+        valor.disabled = true;
+    } else {valor.disabled = false;}
+}
+
+const limparOperacao = () => {
+    for (input of operacao) {input.value = ''};
 }
 
 const submit = document.getElementById('submit');
 submit.addEventListener('click', salvarFormulario);
 
-document.getElementById('clear').addEventListener('click', limparFormulario);
+document.getElementById('clear').addEventListener('click', limparCadastro);
+
+document.getElementById('operacao').addEventListener('change', desativarValor);
+
+document.getElementById('clearOperacao').addEventListener('click', limparOperacao);

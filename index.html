@@ -17,30 +17,58 @@
         <label for="nome">
             Nome completo:
         </label>
-        <input type="text" name="nome" placeholder="João da Silva">
+        <input class="cadastro" type="text" name="nome" placeholder="João da Silva">
         <br>
         <label for="cpf">
             CPF:
         </label>
-        <input type="text" name="cpf" placeholder="XXX.XXX.XXX-XX">
+        <input class="cadastro" type="text" name="cpf" placeholder="XXX.XXX.XXX-XX">
         <br>
         <label for="celular">
             Celular:
         </label>
-        <input type="text" name="celular" placeholder="(XX)9XXXX-XXXX">
+        <input class="cadastro" type="text" name="celular" placeholder="(XX)9XXXX-XXXX">
         <br>
         <label for="senha">
             Senha:
         </label>
-        <input type="password" name="senha">
+        <input class="cadastro" type="password" name="senha">
         <br>
         <label for="confirma">
             Confirma a senha:
         </label>
-        <input type="password" name="confirma">
+        <input class="cadastro" type="password" name="confirma">
         <br>
         <button id="submit">Criar conta</button>
         <button id="clear">Limpar formulário</button>
+        <hr>
+        <label for="operacao">
+            Operação:
+        </label>
+        <select class="operacao" name="operacao" id="operacao">
+            <option value="" selected disabled></option>
+            <option value="saque">Saque</option>
+            <option value="deposito">Depósito</option>
+            <option value="consulta">Consultar saldo</option>
+        </select>
+        <br>
+        <label for="valor">
+            Valor:
+        </label>
+        <input class="operacao" type="number" step=".01" min="0" name="valor" placeholder="X.XX" id="valor">
+        <br>
+        <label for="conta">
+            Conta:
+        </label>
+        <input class="operacao" type="text" name="conta">
+        <br>
+        <label for="senhaOperacao">
+            Senha:
+        </label>
+        <input class="operacao" type="password" name="senhaOperacao">
+        <br>
+        <button id="execute">Executar operação</button>
+        <button id="clearOperacao">Limpar formulário</button>
     </main>
     <footer>
         <ul>
