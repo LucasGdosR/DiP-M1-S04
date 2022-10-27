@@ -109,8 +109,13 @@ const sacar = () => {
 
 }
 
-const consultar = () => {
-
+const consultar = (acc) => {
+    for (conta of contas) {
+        if (conta.conta == acc) {
+            alert(`Seu saldo é de R$${conta.saldo}.`);
+            break;
+        }
+    }
 }
 
 const depositar = () => {
@@ -128,7 +133,7 @@ const executar = () => {
                         sacar();
                         return;
                     case 'deposito':
-                        consultar();
+                        consultar(acc);
                         return;
                     case 'consulta':
                         depositar();
