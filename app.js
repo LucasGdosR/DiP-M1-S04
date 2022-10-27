@@ -118,25 +118,36 @@ const consultar = (acc) => {
     }
 }
 
-const depositar = () => {
-
+const depositar = (acc, valor) => {
+    if (valor < 0) {
+        alert("Valor inválido.");
+        return;
+    }
+    for (conta of contas) {
+        if (conta.conta == acc) {
+            conta.saldo += parseFloat(valor);
+            alert(`Depósito realizado com sucesso. Seu saldo é de R$${conta.saldo}.`);
+            break;
+        }
+    }
 }
 
 const executar = () => {
     const acc = document.getElementById('conta').value;
+    const valor = document.getElementById('valor').value;
     const password = document.getElementById('senha').value;
     for (account of contas) {
         if (account.conta == acc) {
             if (password == account.senha) {
                 switch (document.getElementById('operacao').value) {
                     case 'saque':
-                        sacar();
+                        sacar(acc, valor);
                         return;
                     case 'deposito':
-                        consultar(acc);
+                        depositar(acc, valor);
                         return;
                     case 'consulta':
-                        depositar();
+                        consultar(acc);
                         return;
                 }
             }
