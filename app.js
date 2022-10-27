@@ -105,8 +105,22 @@ const limparOperacao = () => {
     for (input of operacao) {input.value = ''};
 }
 
-const sacar = () => {
-
+const sacar = (acc, valor) => {
+    if (valor < 0 || isNaN(parseFloat(valor))) {
+        alert("Valor inválido.");
+        return;
+    }
+    for (conta of contas) {
+        if (conta.conta == acc) {
+            if (conta.saldo < parseFloat(valor)) {
+                alert("Saldo insuficiente.");
+            } else {
+                conta.saldo -= parseFloat(valor);
+                alert(`Saque realizado com sucesso. Seu saldo é de R$${conta.saldo}.`);
+            }
+            break;
+        }
+    }
 }
 
 const consultar = (acc) => {
@@ -119,7 +133,7 @@ const consultar = (acc) => {
 }
 
 const depositar = (acc, valor) => {
-    if (valor < 0) {
+    if (valor < 0 || isNaN(parseFloat(valor))) {
         alert("Valor inválido.");
         return;
     }
